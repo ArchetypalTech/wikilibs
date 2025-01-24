@@ -8,9 +8,10 @@ export default defineConfig({
     build: {
         copyPublicDir: false,
         lib: {
-            entry: resolve(__dirname, 'lib/wikilibs.ts'),
+            entry: resolve(__dirname, 'lib/main.ts'),
             name: "VitePress",
-            formats: ['es']
+            formats: ['es'],
+            fileName: "main.js"
         },
         rollupOptions: {
             external: [

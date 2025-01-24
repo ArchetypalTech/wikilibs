@@ -3,8 +3,8 @@
   "private": false,
   "version": "0.0.2",
   "type": "module",
-  "main": "dist/wikilibs.js",
-  "types": "dist/wikilibs.d.ts",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
   "files": [
     "dist"
   ],
