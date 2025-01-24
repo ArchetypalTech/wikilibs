@@ -1,6 +1,5 @@
 {
-  "name": "wikilibs",
-  "private": true,
+  "name": "@archetypaltech/wikilibs",
   "version": "0.0.1",
   "type": "module",
   "main": "dist/main.js",
