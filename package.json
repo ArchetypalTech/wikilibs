@@ -9,7 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "npx run-func dist/wikilibs.js prepareDirectoryStructure",
+    "directories": "npx run-func dist/wikilibs.js prepareDirectoryStructure",
     "dev": "vite",
     "build": "tsc --p ./tsconfig-build.json && vite build",
     "preview": "vite preview",
