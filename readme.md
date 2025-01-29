@@ -1,5 +1,6 @@
 ![Arcetypal Repo](./archetypal-heading.jpg)
 # Wikilibs
+[![npm version](https://badge.fury.io/js/@archetypaltech%2Fwikilibs.svg)](https://badge.fury.io/js/@archetypaltech%2Fwikilibs)
 Core wiki generator, routes and paths for menu directories
 
 A Libray to keep Wiki features upto date.
