@@ -29,7 +29,8 @@ export async function processMarkdown() {
 
 				const data = readFileSync(filepath, 'utf-8');
 				const { content, frontmatter } = await parseFrontMatter(data);
-				const html = md.render(content);
+				const pageContent = updateObsidianImageFormat(content)
+				const html = md.render(pageContent);
 				const { build, route } = await getBuildPath(path, slug);
 
 				config.PROPS[route] = {
@@ -59,6 +60,30 @@ function getLastModified(filepath) {
 			res(stats.mtime.toISOString());
 		});
 	});
+}
+/**
+ * 
+ * @param {content} string page content
+ * switches from ![[path]] to ![path](path)
+ * @returns updated markdown
+ */
+function updateObsidianImageFormat(content) {
+	let customMarkdown = ''
+	const REGEX_RULE = /!\[\[(.+?\..+?)\]\]/g
+	const obsidianImages = content.match(REGEX_RULE);
+	const images = obsidianImages?.map((img) => {
+		const path = img.split('![[')[1].split(']]')[0];
+		return {
+			path,
+			target: img,
+			markdown: `![${path}](${path})`
+		}
+		
+	})
+	images?.forEach(async (img) => {					
+		customMarkdown = customMarkdown.replace(img.target, img.markdown)
+	})
+	return customMarkdown
 }
 
 export async function processRoutes() {

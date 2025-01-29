@@ -15,7 +15,7 @@ const wikilinkOptions = {
 export default markdownit()
     .use(emoji)
     .use(anchors)
-    .use(markdownImages)
     .use(tasklist)
+    .use(markdownImages)
     .use(markdownItWikilinks(wikilinkOptions))
     .use(highlightjs)

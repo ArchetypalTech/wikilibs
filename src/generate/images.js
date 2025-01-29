@@ -48,8 +48,8 @@ function resizeImage(path, { width, key }) {
             // get filename
             let target = path.split('/').slice(-1).join('')
             // strip whitespace
-            const sanitized = target.split(' ').join('_').split('.').splice(0,1)
-            sanitized.splice(1, -1, 'webp')
+            let sanitized = target.split(' ').join('_').split('.')
+            sanitized[sanitized.length - 1] = 'webp';
             const filename = sanitized.join('.')
             
             if (metadata.width > width) image.resize({ width })
@@ -73,8 +73,8 @@ export function markdownImages (md, config) {
       
       if(!url.includes('gif')) {
           // switch file type for webp
-          const src = url.split('.')
-          src.splice(1, 1, 'webp').join('.')
+          let src = url.split('.')
+          src[src.length - 1] = 'webp';
           url = src.join('.')
       }
       // align with obsidian wiki links and follow markdown-it 
