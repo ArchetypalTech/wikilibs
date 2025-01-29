@@ -10,7 +10,6 @@ export default defineConfig({
         lib: {
             entry: resolve(__dirname, 'lib/main.ts'),
             name: "VitePress",
-            formats: ['es'],
             fileName: "main.js"
         },
         rollupOptions: {
