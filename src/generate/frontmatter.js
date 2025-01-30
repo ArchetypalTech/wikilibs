@@ -7,9 +7,11 @@ export default async function(text, delimiter = "---") {
     // extract frontmatter
     while (i < lines.length) {
         const line = lines[i].trim()
+        const startingLine = lines[0].trim()
         const startIsTruthy = typeof startIndex === "number"
         const endIsTruthy = typeof endIndex === "number"
-        if(!startIsTruthy && line.includes(delimiter)) startIndex = i
+
+        if(!startIsTruthy && startingLine.includes(delimiter)) startIndex = 0
         if(startIndex !== i && !endIsTruthy && line.includes(delimiter)) endIndex = i
         if(startIsTruthy && endIsTruthy) {
             frontmatter = {}
