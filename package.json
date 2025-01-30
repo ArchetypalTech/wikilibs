@@ -29,8 +29,6 @@
     "@ig3/markdown-it-wikilinks": "^1.0.2",
     "@mdit/plugin-tasklist": "^0.16.0",
     "fast-glob": "^3.3.3",
-    "glob": "^11.0.1",
-    "linkify-it": "^5.0.0",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-emoji": "^3.0.0",
