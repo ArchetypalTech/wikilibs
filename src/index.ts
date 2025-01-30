@@ -10,10 +10,10 @@ import {
 } from 'fs';
 export async function generateWiki() {
     
-    // await processImages()
+    await processImages()
     await processMarkdown()
-    // await processRoutes()
-	// await buildMenuTree()
+    await processRoutes()
+	await buildMenuTree()
 
 }
 
