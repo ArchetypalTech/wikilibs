@@ -31,9 +31,9 @@ export async function processMarkdown() {
 				const data = readFileSync(filepath, 'utf-8');
 				let { content, frontmatter } = await parseFrontMatter(data);
 				content = updateObsidianImageFormat(content)
-				content = linkify(content);
+				// content = linkify(content);
 				let html = md.render(content);
-				html = cleanDoubleLinks(html)
+				// html = cleanDoubleLinks(html)
 				
 				const { build, route } = await getBuildPath(path, slug);
 
