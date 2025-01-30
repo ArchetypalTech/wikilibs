@@ -20,6 +20,7 @@ const HTML_CONTENT = 'src/content'
 // Markdown init & plugins
 export async function processMarkdown() {
 	const files = await FastGlob(`${MD_CONTENT}/**/*.md`);
+	console.log('files', files)
 	return Promise.all(
 		files.map((filepath) => {
 			return new Promise(async (resolve, reject) => {
@@ -34,6 +35,7 @@ export async function processMarkdown() {
 				// content = linkify(content);
 				let html = md.render(content);
 				// html = cleanDoubleLinks(html)
+				console.log('html', html)
 				
 				const { build, route } = await getBuildPath(path, slug);
 
