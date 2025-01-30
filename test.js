@@ -1,6 +1,6 @@
 import { glob } from 'glob';
 import FastGlob from 'fast-glob';
-import { generateWiki } from "./dist/wikilibs.js";
+import { generateWiki } from "./dist/main.js";
 // import { buildMenuTree } from "./src/generate/debug.js";
 // generateWiki('static/gifs')
 // const MD_CONTENT = 'vaults/content/**/*.md'

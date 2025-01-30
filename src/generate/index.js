@@ -10,6 +10,7 @@ import {
 import FastGlob from 'fast-glob';
 import md from './markdown.js';
 import parseFrontMatter from './frontmatter.js';
+import { linkify, cleanDoubleLinks } from './linkify.js';
 import config from './config.js';
 
 const ROUTE_DATA = 'src/lib/data'
@@ -28,9 +29,12 @@ export async function processMarkdown() {
 				if (!requiresUpdate(slug, lastModified)) return resolve();
 
 				const data = readFileSync(filepath, 'utf-8');
-				const { content, frontmatter } = await parseFrontMatter(data);
-				const pageContent = updateObsidianImageFormat(content)
-				const html = md.render(pageContent);
+				let { content, frontmatter } = await parseFrontMatter(data);
+				content = updateObsidianImageFormat(content)
+				content = linkify(content);
+				let html = md.render(content);
+				html = cleanDoubleLinks(html)
+				
 				const { build, route } = await getBuildPath(path, slug);
 
 				config.PROPS[route] = {
@@ -61,6 +65,7 @@ function getLastModified(filepath) {
 		});
 	});
 }
+
 /**
  * 
  * @param {content} string page content
@@ -68,7 +73,7 @@ function getLastModified(filepath) {
  * @returns updated markdown
  */
 function updateObsidianImageFormat(content) {
-	let customMarkdown = ''
+	let customMarkdown = content
 	const REGEX_RULE = /!\[\[(.+?\..+?)\]\]/g
 	const obsidianImages = content.match(REGEX_RULE);
 	const images = obsidianImages?.map((img) => {
