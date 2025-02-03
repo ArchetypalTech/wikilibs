@@ -51,7 +51,6 @@ function resizeImage(path, { width, key }) {
             let sanitized = target.split(' ').join('_').split('.')
             sanitized[sanitized.length - 1] = 'webp';
             const filename = sanitized.join('.')
-            
             if (metadata.width > width) image.resize({ width })
 
             return image
@@ -101,7 +100,7 @@ export function markdownImages (md, config) {
   }
   
   function genSourceSet(url) {
-      return `srcset="/${url} ${srcsets.sm}w, /md/${url} ${srcsets.md}w, /lg/${url} ${srcsets.lg}w"`
+      return `srcset="/${url} ${srcsets[0].width}w, /md/${url} ${srcsets[1].width}w, /lg/${url} ${srcsets[2].width}w"`
   }
   
   function generateTargetAttribute (target) {

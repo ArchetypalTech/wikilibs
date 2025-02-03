@@ -14,7 +14,8 @@
     "build": "tsc --p ./tsconfig-build.json && vite build",
     "preview": "vite preview",
     "test": "node test.js",
-    "exec": "npx run-func dist/main.es.js generateWiki"
+    "wiki": "npx run-func dist/main.es.js generateWiki",
+    "clear:content": "rm -rf ./src/content"
   },
   "peerDependencies": {
     "sharp": "^0.33.5"

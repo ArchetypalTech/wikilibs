@@ -7,7 +7,7 @@ import { tasklist } from "@mdit/plugin-tasklist";
 import anchors from 'markdown-it-anchor'
 
 const wikilinkOptions = {
-    htmlAttributes: {'data-wiki': true},
+    htmlAttributes: {'data-wiki': false},
     uriSuffix :'',
     makeAllLinksAbsolute: true,
 }

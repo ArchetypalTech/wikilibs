@@ -5,18 +5,17 @@
  */
 export function linkify(text /*: string*/ /*: string*/) {
   const PLAIN_URLS = /(?<!\]\()https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
-  const MARKDOWN_LINKS = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
-
+  // const MARKDOWN_LINKS = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
+  
   const allMatches = text.match(PLAIN_URLS) || [];
-  const ignoreMatches = [...text.matchAll(MARKDOWN_LINKS)].map(match => match[2]);
-
-  const matches = allMatches.filter(link => ignoreMatches.includes(link));
-
+  // const ignoreMatches = [...text.matchAll(MARKDOWN_LINKS)].map(match => match[2]);
+  // const matches = allMatches.filter(link => ignoreMatches.includes(link));
+  // console.log(allMatches)
   // No match, return the text
-  if (!matches.length) return text;
+  if (!allMatches.length) return text;
 
   // Build up the result
-  matches.forEach(match => {
+  allMatches.forEach(match => {
     const markdownLink = `[${match}](${match})`;
     text = text.replaceAll(match, markdownLink);
   })

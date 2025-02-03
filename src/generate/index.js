@@ -20,7 +20,6 @@ const HTML_CONTENT = 'src/content'
 // Markdown init & plugins
 export async function processMarkdown() {
 	const files = await FastGlob(`${MD_CONTENT}/**/*.md`);
-	console.log('files', files)
 	return Promise.all(
 		files.map((filepath) => {
 			return new Promise(async (resolve, reject) => {
@@ -35,6 +34,7 @@ export async function processMarkdown() {
 				content = linkify(content);
 				let html = md.render(content);
 				html = cleanDoubleLinks(html)
+				html = updateObsidianLinksWithTags(html)
 				
 				const { build, route } = await getBuildPath(path, slug);
 
@@ -91,6 +91,25 @@ function updateObsidianImageFormat(content) {
 	})
 	return customMarkdown
 }
+function updateObsidianLinksWithTags(content) {
+	let customMarkdown = content
+	const REGEX_RULE = /(\[\[(?:(.+?)\|)?(.+?)\]\])/g
+	const obsidianLinks = content.match(REGEX_RULE);
+	const links = obsidianLinks?.map((text) => {
+		const path = text.split('[[')[1].split(']]')[0];
+		const [label, anchor] = path.split('#')
+		return {
+			path,
+			target: text,
+			html: `<a data-wiki="${kebabme(anchor)}" href="/${kebabme(label)}">${label}</a>`
+		}
+		
+	})
+	links?.forEach(async (img) => {					
+		customMarkdown = customMarkdown.replace(img.target, img.html)
+	})
+	return customMarkdown
+}
 
 export async function processRoutes() {
 	// update cache
@@ -144,6 +163,15 @@ function sanitizePath(filepath) {
 	let cleanedPaths = path.map(sluggify);
 
 	return { slug, path: cleanedPaths };
+}
+
+function kebabme(file) {
+	file = file.includes(' ')
+	? file.split(' ').join('-')
+	: file.includes('_')
+		? file.split('_').join('-')
+		: file;
+	return file.toLowerCase();
 }
 
 function sluggify(file) {
