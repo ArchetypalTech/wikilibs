@@ -98,10 +98,12 @@ function updateObsidianLinksWithTags(content) {
 	const links = obsidianLinks?.map((text) => {
 		const path = text.split('[[')[1].split(']]')[0];
 		const [label, anchor] = path.split('#')
+		let [href, smartLabel] = label.split('|')
+		if (href) href = href.trim()
 		return {
 			path,
 			target: text,
-			html: `<a data-wiki="${kebabme(anchor)}" href="/${kebabme(label)}">${label}</a>`
+			html: `<a data-wiki="${anchor && kebabme(anchor) || 'false'}" href="/${kebabme(href ? href : label)}">${smartLabel ? smartLabel : label}</a>`
 		}
 		
 	})
