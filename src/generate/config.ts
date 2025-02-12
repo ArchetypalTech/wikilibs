@@ -1,9 +1,9 @@
 // import cache from '../src/lib/data/routes.js';
 export default {
-        PROPS: {}, 
-        ORIGINALS: [],
-        CACHE: {}
-}
+    PROPS: {},
+    ORIGINALS: [],
+    CACHE: {},
+};
 // export default {
 // 	srcsets: { sm: 680, md: 1280, lg: 1640 },
 // 	props: {},
