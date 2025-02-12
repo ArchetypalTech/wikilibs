@@ -3,7 +3,7 @@ import FastGlob from "fast-glob";
 import { copyFile } from "fs";
 const attachments = "vaults/content/attachments/*.{jpeg,jpg,png,gif}";
 const PUBLIC = "static";
-const srcsets = [
+const srcsets: Meta[] = [
     {
         key: "sm",
         width: 680,
@@ -17,6 +17,10 @@ const srcsets = [
         width: 1440,
     },
 ];
+type Meta = {
+    key: "sm" | "md" | "lg";
+    width: number;
+};
 export async function processImages() {
     const files = await FastGlob(attachments);
 
@@ -43,7 +47,7 @@ function processGif(path) {
         copyFile(path, `${PUBLIC}/gifs/${sanitized}`, resolve);
     });
 }
-function resizeImage(path: string, { width, key }) {
+function resizeImage(path: string, { width, key }: Meta) {
     return new Promise(async (resolve, reject) => {
         const image = await sharp(path);
         image
@@ -55,6 +59,7 @@ function resizeImage(path: string, { width, key }) {
                 let sanitized = target.split(" ").join("_").split(".");
                 sanitized[sanitized.length - 1] = "webp";
                 const filename = sanitized.join(".");
+                // @ts-ignore
                 if (metadata?.width > width) image.resize({ width });
 
                 return image
@@ -65,7 +70,8 @@ function resizeImage(path: string, { width, key }) {
     });
 }
 
-export function markdownImages(md: string, config) {
+export function markdownImages(md: string, config: unknown) {
+    // @ts-ignore
     md.renderer.rules.image = function (tokens, idx, options, env, self) {
         config = config || {};
 
@@ -85,16 +91,19 @@ export function markdownImages(md: string, config) {
         url = url.split("%20").join("_");
 
         var title = "";
+        // @ts-ignore
         var caption = md.utils.escapeHtml(token.content);
 
         // var target = generateTargetAttribute(config.target)
         // var linkClass = generateClass(config.linkClass)
+        // @ts-ignore
         var imgClass = generateClass(config.imgClass);
         const srcset = genSourceSet(url);
 
         if (token.attrIndex("title") !== -1) {
             title =
                 ' title="' +
+                // @ts-ignore
                 md.utils.escapeHtml(token.attrs[token.attrIndex("title")][1]) +
                 '"';
         }

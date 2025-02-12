@@ -1,3 +1,4 @@
+// @ts-nocheck
 import markdownit from "markdown-it";
 import { markdownImages } from "./images.ts";
 import { full as emoji } from "markdown-it-emoji";
