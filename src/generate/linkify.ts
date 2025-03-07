@@ -13,9 +13,12 @@ export function linkify(text: string) {
     // console.log(allMatches, ignoreMatches, matches);
     // No match, return the text
     if (!inlineMatches.length) return text;
-
+    // lookout for youtube embeds
+    const filtered = inlineMatches.filter(
+        (path) => !path.includes("youtube.com/embed")
+    );
     // Build up the result
-    inlineMatches.forEach((match) => {
+    filtered.forEach((match) => {
         const markdownLink = `[${match}](${match})`;
         text = text.replaceAll(match, markdownLink);
     });
@@ -31,4 +34,15 @@ export function cleanDoubleLinks(html: string) {
     html = html.replaceAll(/%5B/g, "");
     html = html.replaceAll(/%5D([^"']*?\))/g, "");
     return html;
+}
+/**
+ * Converts leftover HTML entitiy tags from &lt; to <
+ * Markdown-it doesnt cover this task
+ * @param html
+ */
+export function purifyHTMLEntities(html: string) {
+    return html
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"');
 }

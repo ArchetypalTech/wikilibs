@@ -4,7 +4,7 @@ import { readFileSync, writeFile, mkdirSync, existsSync, stat } from "fs";
 import FastGlob from "fast-glob";
 import md from "./markdown.ts";
 import parseFrontMatter from "./frontmatter.ts";
-import { linkify, cleanDoubleLinks } from "./linkify.ts";
+import { linkify, cleanDoubleLinks, purifyHTMLEntities } from "./linkify.ts";
 import config from "./config.ts";
 
 const ROUTE_DATA = "src/lib/data";
@@ -28,6 +28,7 @@ export async function processMarkdown() {
                 content = linkify(content);
                 let html = md.render(content);
                 html = cleanDoubleLinks(html);
+                html = purifyHTMLEntities(html);
                 html = updateObsidianLinksWithTags(html);
 
                 const { build, route } = await getBuildPath(path, slug);
