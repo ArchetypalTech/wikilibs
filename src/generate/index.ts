@@ -30,7 +30,6 @@ export async function processMarkdown() {
                 html = cleanDoubleLinks(html);
                 html = purifyHTMLEntities(html);
                 html = updateObsidianLinksWithTags(html);
-                console.log("runnin");
 
                 const { build, route } = await getBuildPath(path, slug);
 
@@ -117,6 +116,7 @@ export async function processRoutes() {
     Object.values(config.PROPS).forEach(
         (update) => (config.CACHE[update.route] = update)
     );
+    console.log(config.CACHE);
     // save config.cache - actually gets built from empty each time due to dockerfile
     await writeModule(config.CACHE, "routes");
 }
@@ -137,7 +137,7 @@ export async function buildMenuTree() {
 
         buildTree(menu, paths, file, true);
     });
-
+    console.log(menu);
     await writeModule(menu, `menu`);
 }
 
