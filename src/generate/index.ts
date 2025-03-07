@@ -30,6 +30,7 @@ export async function processMarkdown() {
                 html = cleanDoubleLinks(html);
                 html = purifyHTMLEntities(html);
                 html = updateObsidianLinksWithTags(html);
+                console.log("runnin");
 
                 const { build, route } = await getBuildPath(path, slug);
 
