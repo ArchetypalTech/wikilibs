@@ -112,11 +112,12 @@ function updateObsidianLinksWithTags(content) {
 }
 
 export async function processRoutes() {
+    // console.log(config.ORIGINALS);
     // update cache
     Object.values(config.PROPS).forEach(
         (update) => (config.CACHE[update.route] = update)
     );
-    console.log(config.CACHE);
+    // console.log(config.CACHE);
     // save config.cache - actually gets built from empty each time due to dockerfile
     await writeModule(config.CACHE, "routes");
 }
@@ -137,7 +138,6 @@ export async function buildMenuTree() {
 
         buildTree(menu, paths, file, true);
     });
-    console.log(menu);
     await writeModule(menu, `menu`);
 }
 
@@ -193,6 +193,7 @@ function sluggify(file) {
     const slug = file.toLowerCase();
 
     config.ORIGINALS[slug] = label;
+
     return slug;
 }
 

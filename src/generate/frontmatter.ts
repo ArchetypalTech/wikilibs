@@ -4,6 +4,7 @@ interface Frontmatter {
     published?: string;
     tags?: string[];
     date?: string | Date;
+    signup?: string[];
 }
 type Front = keyof Frontmatter;
 export default async function (text: string, delimiter = "---") {
@@ -29,12 +30,17 @@ export default async function (text: string, delimiter = "---") {
         }
         i++;
     }
-    if (!startIndex || !endIndex) return Promise.resolve({ content: text });
+    console.log(startIsTruthy, endIsTruthy);
+    if (!startIsTruthy || !endIsTruthy)
+        return Promise.resolve({ content: text });
     // format frontmatter
     let data = [];
+    // @ts-ignore
     data = lines.slice(startIndex + 1, endIndex);
+    console.log(data);
     data.forEach((keyval: string) => {
         const kv = keyval.split(":");
+        console.log(kv);
         if (kv.length !== 2) return;
         const key = kv[0] as Front;
         let value: string = kv[1].trim();
@@ -46,14 +52,16 @@ export default async function (text: string, delimiter = "---") {
                 console.error("Failed to parse value as JSON:", value);
             }
         }
+        console.log(key);
         if (key === "tags" && Array.isArray(value)) {
             frontmatter[key] = value;
         } else {
             frontmatter[key] = value as any;
         }
     });
-
+    console.log(frontmatter);
     frontmatter = await specialFields(frontmatter);
+    console.log(frontmatter);
     const content = lines.slice(i + 1).join("\n");
     return Promise.resolve({
         frontmatter,
