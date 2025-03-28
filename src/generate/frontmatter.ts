@@ -45,14 +45,14 @@ export default async function (text: string, delimiter = "---") {
         if (kv.length !== 2) return;
         const key = kv[0] as Front;
         let value: string = kv[1].trim();
-        // if (value.includes("[") && value.includes("]")) value = eval(value);
-        if (value.startsWith("[") && value.endsWith("]")) {
-            try {
-                value = JSON.parse(value);
-            } catch (e) {
-                console.error("Failed to parse value as JSON:", value);
-            }
-        }
+        if (value.includes("[") && value.includes("]")) value = eval(value);
+        // if (value.startsWith("[") && value.endsWith("]")) {
+        //     try {
+        //         value = JSON.parse(value);
+        //     } catch (e) {
+        //         console.error("Failed to parse value as JSON:", value);
+        //     }
+        // }
         if (key === "tags" && Array.isArray(value)) {
             frontmatter[key] = value;
         } else {
