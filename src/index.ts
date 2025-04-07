@@ -9,10 +9,10 @@ import { buildMenuTree } from "./generate/index.ts";
 
 import { mkdirSync, existsSync, writeFileSync } from "fs";
 export async function generateWiki() {
-    // await processImages();
+    await processImages();
     await processMarkdown();
-    // await processRoutes();
-    // await buildMenuTree();
+    await processRoutes();
+    await buildMenuTree();
 }
 
 export function prepareDirectoryStructure() {
