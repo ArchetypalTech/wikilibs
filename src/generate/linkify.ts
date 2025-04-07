@@ -15,7 +15,7 @@ export function linkify(text: string) {
     if (!inlineMatches.length) return text;
     // lookout for youtube embeds
     const filtered = inlineMatches.filter(
-        (path) => !path.includes("youtube.com/embed")
+        () => !text.includes("iframe") //path.includes("youtube.com/")
     );
     // Build up the result
     filtered.forEach((match) => {

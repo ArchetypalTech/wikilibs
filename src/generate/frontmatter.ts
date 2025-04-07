@@ -41,9 +41,10 @@ export default async function (text: string, delimiter = "---") {
         throw new Error("startIndex or endIndex is null");
     }
     data.forEach((keyval: string) => {
-        const kv = keyval.split(":");
+        let kv = keyval.split(":");
         if (kv.length !== 2) return;
         const key = kv[0] as Front;
+        if (key.includes("#")) return;
         let value: string = kv[1].trim();
         if (value.includes("[") && value.includes("]")) value = eval(value);
         // if (value.startsWith("[") && value.endsWith("]")) {

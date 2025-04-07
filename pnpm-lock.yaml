@@ -36,6 +36,9 @@ importers:
       '@types/node':
         specifier: ^22.10.9
         version: 22.10.9
+      markdown-it-iframe:
+        specifier: ^1.0.0
+        version: 1.0.0
       typescript:
         specifier: ~5.6.2
         version: 5.6.3
@@ -751,6 +754,9 @@ packages:
 
   markdown-it-highlightjs@4.2.0:
     resolution: {integrity: sha512-NC7pXE8KkOl6xWJVRNt8p6wgJVznXKsE0HgYGdk6DD2tn1l4L9f0ALf3VIoGVkotNU1uGQatSxfBF1zZPUMmuQ==}
+
+  markdown-it-iframe@1.0.0:
+    resolution: {integrity: sha512-UA/MZARLnUXJkhd+ECpMUBLLnMmOB4LmgOUL41+1GMqcwZnb1utP6VNZ4ZvEn5o9ZnuAUh6zvYcsQciwxy7WvA==}
 
   markdown-it-regexp@0.4.0:
     resolution: {integrity: sha512-0XQmr46K/rMKnI93Y3CLXsHj4jIioRETTAiVnJnjrZCEkGaDOmUxTbZj/aZ17G5NlRcVpWBYjqpwSlQ9lj+Kxw==}
@@ -1594,6 +1600,8 @@ snapshots:
   markdown-it-highlightjs@4.2.0:
     dependencies:
       highlight.js: 11.11.1
+
+  markdown-it-iframe@1.0.0: {}
 
   markdown-it-regexp@0.4.0: {}
 
