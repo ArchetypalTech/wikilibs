@@ -2,7 +2,7 @@
 import sharp from "sharp";
 import FastGlob from "fast-glob";
 import { copyFile } from "fs";
-const attachments = "vaults/content/attachments/*.{jpeg,jpg,png,gif}";
+const attachments = "vaults/content/attachments/*.{jpeg,jpg,png,gif,svg}";
 const PUBLIC = "static";
 const srcsets: Meta[] = [
     {
@@ -28,8 +28,9 @@ export async function processImages() {
     return await Promise.all(
         files.map(async (path) => {
             let group = [];
-            if (path.includes(".gif")) {
-                group.push(processGif(path));
+            if (path.includes(".gif") || path.includes(".svg")) {
+                if (path.includes(".gif")) group.push(processGif(path));
+                if (path.includes(".svg")) group.push(copyImage(path));
             } else {
                 srcsets.forEach((meta) => {
                     group.push(resizeImage(path, meta));
@@ -40,6 +41,13 @@ export async function processImages() {
             return Promise.resolve();
         })
     );
+}
+function copyImage(path) {
+    return new Promise(async (resolve, reject) => {
+        let target = path.split("/").slice(-1).join("");
+        const sanitized = target.split(" ").join("_");
+        copyFile(path, `${PUBLIC}/${sanitized}`, resolve);
+    });
 }
 function processGif(path) {
     return new Promise(async (resolve, reject) => {
@@ -75,12 +83,11 @@ export function markdownImages(md: string, config: unknown) {
     // @ts-ignore
     md.renderer.rules.image = function (tokens, idx, options, env, self) {
         config = config || {};
-
         var token = tokens[idx];
         var srcIndex = token.attrIndex("src");
         let url = token.attrs[srcIndex][1];
 
-        if (!url.includes("gif")) {
+        if (!url.includes("gif") && !url.includes("svg")) {
             // switch file type for webp
             let src = url.split(".");
             src[src.length - 1] = "webp";
@@ -108,6 +115,8 @@ export function markdownImages(md: string, config: unknown) {
                 md.utils.escapeHtml(token.attrs[token.attrIndex("title")][1]) +
                 '"';
         }
+        if (url.includes("svg"))
+            return `<img loading="lazy" src="/${url}" alt="${caption}" ${title} ${imgClass}/>`;
         if (!url.includes("gif")) {
             return `<img loading="lazy" ${srcset} src="/sm/${url}" alt="${caption}" ${title} ${imgClass}/>`;
         }

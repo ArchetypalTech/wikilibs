@@ -1,39 +1,39 @@
 {
-  "name": "@archetypaltech/wikilibs",
-  "private": false,
-  "version": "0.3.7",
-  "type": "module",
-  "main": "dist/main.js",
-  "types": "dist/main.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "directories": "npx run-func dist/main.es.js prepareDirectoryStructure",
-    "dev": "vite",
-    "build": "tsc --p ./tsconfig-build.json && vite build",
-    "preview": "vite preview",
-    "test": "node test.js",
-    "wiki": "npx run-func dist/main.es.js generateWiki",
-    "clear:content": "rm -rf ./src/content"
-  },
-  "peerDependencies": {
-    "sharp": "^0.33.5"
-  },
-  "devDependencies": {
-    "@types/node": "^22.10.9",
-    "markdown-it-iframe": "^1.0.0",
-    "typescript": "~5.6.2",
-    "vite": "^6.0.5",
-    "vite-plugin-dts": "^4.5.0"
-  },
-  "dependencies": {
-    "@ig3/markdown-it-wikilinks": "^1.0.2",
-    "@mdit/plugin-tasklist": "^0.16.0",
-    "fast-glob": "^3.3.3",
-    "markdown-it": "^14.1.0",
-    "markdown-it-anchor": "^9.2.0",
-    "markdown-it-emoji": "^3.0.0",
-    "markdown-it-highlightjs": "^4.2.0"
-  }
+    "name": "@archetypaltech/wikilibs",
+    "private": false,
+    "version": "0.3.7",
+    "type": "module",
+    "main": "dist/main.js",
+    "types": "dist/main.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "directories": "npx run-func dist/main.es.js prepareDirectoryStructure",
+        "dev": "vite",
+        "build": "tsc --p ./tsconfig-build.json && vite build",
+        "preview": "vite preview",
+        "test": "node test.js",
+        "wiki": "npx run-func dist/main.js generateWiki",
+        "clear:content": "rm -rf ./src/content"
+    },
+    "peerDependencies": {
+        "sharp": "^0.33.5"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.9",
+        "markdown-it-iframe": "^1.0.0",
+        "typescript": "~5.6.2",
+        "vite": "^6.0.5",
+        "vite-plugin-dts": "^4.5.0"
+    },
+    "dependencies": {
+        "@ig3/markdown-it-wikilinks": "^1.0.2",
+        "@mdit/plugin-tasklist": "^0.16.0",
+        "fast-glob": "^3.3.3",
+        "markdown-it": "^14.1.0",
+        "markdown-it-anchor": "^9.2.0",
+        "markdown-it-emoji": "^3.0.0",
+        "markdown-it-highlightjs": "^4.2.0"
+    }
 }
